@@ -106,6 +106,20 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+    #В документации в разделе renders находится.
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+        #Если убрать BrowsableApiRender то из браузера api не будут доступны. То есть страницы не будут рендерится. Будет выдаваться чистый json
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    ]
+}
+
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 

@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.urls import include
+from cars.views import RoomView, DialogView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,4 +25,6 @@ urlpatterns = [
     path('api/v1/cars/', include('cars.urls')),
     path('api/v1/auth/', include('djoser.urls')),
     path('api/v1/auth_token/', include('djoser.urls.authtoken')),
+    path('api/v1/room/', RoomView.as_view()),
+    path('api/v1/chat/', DialogView.as_view())
 ]

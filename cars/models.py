@@ -20,3 +20,33 @@ class Car(models.Model):
     )
     car_type = models.IntegerField(verbose_name='Car_Type', choices=CAR_TYPES)
     user = models.ForeignKey(User, verbose_name='Пользователь', on_delete=models.CASCADE)
+
+
+class Room(models.Model):
+    """Model of chat room """
+    creater = models.ForeignKey(User, verbose_name="Комната чата", on_delete=models.CASCADE)
+    invited = models.ManyToManyField(User, verbose_name='Участники', related_name='invited_user')
+    date = models.DateTimeField('Дата создания', auto_now_add=True)
+
+    class Meta:
+        verbose_name = 'Комната чата'
+        verbose_name_plural = 'Комнаты чата'
+
+    def __str__(self):
+        return f'Комната номер: {self.id}'
+
+
+class Chat(models.Model):
+    """Model of chat"""
+    room = models.ForeignKey(Room, verbose_name='Комната чата', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, verbose_name='Пользователь', on_delete=models.CASCADE)
+    text = models.TextField(max_length=100, verbose_name='Сообщение')
+    date = models.DateTimeField(auto_now_add=True, verbose_name='Дата отправки')
+
+#https://www.youtube.com/watch?v=w0iXX5oyxQI
+    class Meta:
+        verbose_name = 'Сообщение'
+        verbose_name_plural = 'Сообщения'
+
+
+#Сериализитро используется для обработки информации с базы данных в json формат, и обратно.
